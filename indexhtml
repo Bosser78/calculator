@@ -1,0 +1,130 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>student grade</title> 
+	<!-- <link rel="stylesheet" href="style.css" /> 
+	<link rel="stylesheet" href="st.css" />  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head> 
+<body> 
+	
+	<div class="container"> 
+	<h1>Student grade calculator</h1> 
+	<div class="screen-body-item"> 
+		<div class="app"> 
+		<div class="form-group"> <h2>ชื่อ-สกุล</h2>
+
+			<input
+			type="text"
+			class="form-control"
+			placeholder="ชื่อ-สกุล"
+			id="name"
+			/> 
+		</div> <h2>คะแนนกลางภาค</h2>
+		<div class="form-group"> 
+			<input
+			type="text"
+			class="form-control"
+			placeholder="คะแนนกลางภาค"
+			id="scoremid"
+			/> 
+		</div> <h2>คะแนนปลายภาค</h2>
+		<div class="form-group"> 
+			<input
+			type="text"
+			class="form-control"
+			placeholder="คะแนนปลายภาค"
+			id="scorelast"
+			/> 
+		</div> 
+		
+		<div> 
+			<input
+			type="button"
+			value="คำนวน"
+			class="btn btn-primary"
+			onclick="calculate()"
+			/> 
+		</div> 
+		</div> 
+	</div> 
+	<!-- for showing the result-->
+	<div class="form-group showdata"> 
+		<p id="showdata"></p> 
+	</div> 
+	</div> 
+	<!--adding external javascript file-->
+	<script >
+		// Function for calculating grades 
+class Student {
+    constructor() {
+        this.name = "";
+        this.midterm = 0;
+        this.final = 0;
+    }
+
+    // Method สำหรับรับค่าจากหน้าเว็บ
+    setStudent(n, m, f) {
+        this.name = n;
+        this.midterm = parseFloat(m);
+        this.final = parseFloat(f);
+    }
+
+    // Method สำหรับคำนวณและให้ค่าเกรด
+    grade() {
+        let total = this.midterm + this.final;
+        let grade;
+
+        if (total >= 80) {
+            grade = '4';
+        } else if (total >= 70) {
+            grade = '3';
+        } else if (total >= 60) {
+            grade = '2';
+        } else if (total >= 50) {
+            grade = '1';
+        } else {
+            grade = '0';
+        }
+
+        return grade;
+    }
+
+    // Method สำหรับแสดงชื่อ-สกุล คะแนนกลางภาค คะแนนปลายภาค คะแนนรวม และเกรดบนหน้าเว็บ
+    showStudent() {
+        const total = this.midterm + this.final;
+        const studentGrade = this.grade();
+
+        return `
+            <br>
+            NAME is ${this.name}<br>
+            Score sum is ${total}<br>
+            Your grade is ${studentGrade}  
+        `;
+    }
+}
+
+const calculate = () => {
+    // Getting input from user
+    let name = document.querySelector("#name").value; 
+    let midtermScore = document.querySelector("#scoremid").value; 
+    let finalScore = document.querySelector("#scorelast").value; 
+
+    // Creating a new student object
+    let student = new Student();
+
+    // Setting student's data
+    student.setStudent(name, midtermScore, finalScore);
+
+    // Checking if all fields are filled
+    if (!name || !midtermScore || !finalScore) {
+        document.querySelector("#showdata").innerHTML = "Please enter all the fields"; 
+    } else {
+        // Showing student's data
+        document.querySelector("#showdata").innerHTML = student.showStudent();
+    }
+};
+
+	</script> 
+</body> 
+</html> 
